@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FC Mobile Points | GameCoins Top-up</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body>
+  <div class="container">
+    <header class="site">
+      <div class="brand">
+        <div class="logo">GC</div>
+        <div>
+          <h1>GameCoins • Top-up</h1>
+          <p class="lead">Buy coins, data & recharge, and top-up betting accounts</p>
+        </div>
+      </div>
+      <nav class="topnav">
+        <a href="home.html" class="nav-btn">Home</a>
+        <a href="efootball.html" class="nav-btn">eFootball</a>
+        <a href="fcmobile.html" class="nav-btn active">FC Mobile</a>
+        <a href="bloodstrike.html" class="nav-btn">Blood Strike</a>
+        <a href="cod.html" class="nav-btn">Call of Duty</a>
+        <a href="data.html" class="nav-btn">Data & Recharge</a>
+        <a href="betting.html" class="nav-btn">Betting Top-up</a>
+        <a href="orders.html" class="nav-btn">Orders</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>FC Mobile Points</h2>
+        <p class="small">Choose a package then message seller to complete the purchase.</p>
+        <div class="packages" id="fcmobile-packages"></div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <a class="btn" href="index.html">Back</a>
+          <button class="btn ghost" data-action="open-sample-whatsapp" data-game="FC Mobile">Message Seller</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- Modal same as before -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal">
+      <h3 id="modalTitle">Purchase</h3>
+      <div id="modalBody">
+        <div class="field"><label>Game / Service</label><input id="orderService" readonly /></div>
+        <div class="field"><label>Package</label><input id="orderPackage" readonly /></div>
+        <div class="field"><label>Price (NGN)</label><input id="orderPrice" readonly /></div>
+        <div class="field"><label>Your Phone (for delivery)</label><input id="orderPhone" placeholder="0803XXXXXXXX" /></div>
+        <div class="field"><label>Additional note</label><textarea id="orderNote" rows="2" placeholder="e.g. my game username"></textarea></div>
+        <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
+          <button class="btn" id="confirmBuy">Message Seller on WhatsApp</button>
+          <button class="btn ghost" id="closeModal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+  <script>
+    fetch('footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+  </script>
+</body>
+</html>

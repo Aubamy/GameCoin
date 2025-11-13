@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data & Recharge | GameCoins Top-up</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body>
+  <div class="container">
+    <header class="site">
+      <div class="brand">
+        <div class="logo">GC</div>
+        <div>
+          <h1>GameCoins • Top-up</h1>
+          <p class="lead">Buy coins, data & recharge, and top-up betting accounts</p>
+        </div>
+      </div>
+      <nav class="topnav">
+        <a href="home.html" class="nav-btn">Home</a>
+        <a href="efootball.html" class="nav-btn">eFootball</a>
+        <a href="fcmobile.html" class="nav-btn">FC Mobile</a>
+        <a href="bloodstrike.html" class="nav-btn">Blood Strike</a>
+        <a href="cod.html" class="nav-btn">Call of Duty</a>
+        <a href="data.html" class="nav-btn active">Data & Recharge</a>
+        <a href="betting.html" class="nav-btn">Betting Top-up</a>
+        <a href="orders.html" class="nav-btn">Orders</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Data & Recharge</h2>
+        <p class="small">Select network, choose bundle or enter airtime amount to send recharge.</p>
+        <div class="card" style="margin-top:12px">
+          <div class="field"><label>Network</label>
+            <select id="network">
+              <option value="mtn">MTN</option>
+              <option value="airtel">Airtel</option>
+              <option value="glo">Glo</option>
+              <option value="9mobile">9mobile</option>
+            </select>
+          </div>
+          <div class="field" style="margin-top:10px"><label>Bundle / Amount</label>
+            <select id="data-bundle">
+              <option value="100">100 NGN (Airtime)</option>
+              <option value="200">200 NGN (Airtime)</option>
+              <option value="500">500 NGN</option>
+              <option value="1000">1000 NGN</option>
+              <option value="1500">1500 NGN</option>
+            </select>
+          </div>
+          <div class="field" style="margin-top:10px"><label>Recipient Phone</label>
+            <input id="data-phone" placeholder="0803XXXXXXXX" />
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+            <button class="btn" id="buyData">Buy via WhatsApp</button>
+            <a class="btn ghost" href="home.html">Back</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- Modal for order confirmation -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal-content">
+      <h3>Confirm Order</h3>
+      <label>Service:</label>
+      <input id="orderService" readonly>
+      <label>Package:</label>
+      <input id="orderPackage" readonly>
+      <label>Price:</label>
+      <input id="orderPrice" readonly>
+      <label>Phone:</label>
+      <input id="orderPhone" placeholder="0803XXXXXXXX">
+      <label>Note (optional):</label>
+      <textarea id="orderNote" placeholder="Extra details..."></textarea>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn" id="confirmBuy">Confirm</button>
+        <button class="btn ghost" id="closeModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+  <script>
+    fetch('footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+  </script>
+</body>
+</html>

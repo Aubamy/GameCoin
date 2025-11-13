@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Betting Top-up | GameCoins Top-up</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body>
+  <div class="container">
+    <header class="site">
+      <div class="brand">
+        <div class="logo">GC</div>
+        <div>
+          <h1>GameCoins • Top-up</h1>
+          <p class="lead">Buy coins, data & recharge, and top-up betting accounts</p>
+        </div>
+      </div>
+      <nav class="topnav">
+        <a href="home.html" class="nav-btn">Home</a>
+        <a href="efootball.html" class="nav-btn">eFootball</a>
+        <a href="fcmobile.html" class="nav-btn">FC Mobile</a>
+        <a href="bloodstrike.html" class="nav-btn">Blood Strike</a>
+        <a href="cod.html" class="nav-btn">Call of Duty</a>
+        <a href="data.html" class="nav-btn">Data & Recharge</a>
+        <a href="betting.html" class="nav-btn active">Betting Top-up</a>
+        <a href="orders.html" class="nav-btn">Orders</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Betting Top-up</h2>
+        <p class="small">Top-up Bet9ja, SportyBet, and other platforms. Minimum top-up is ₦50.</p>
+        <div class="card" style="margin-top:12px">
+          <div class="field">
+            <label>Platform</label>
+            <select id="bet-platform">
+              <option value="">Select Platform</option>
+              <option value="bet9ja">Bet9ja</option>
+              <option value="sportybet">SportyBet</option>
+              <option value="1xbet">1xBet</option>
+              <option value="betking">BetKing</option>
+              <option value="betway">Betway</option>
+            </select>
+          </div>
+          <div class="field" style="margin-top:10px">
+            <label>Account (Username or Phone)</label>
+            <input id="bet-account" placeholder="e.g. 0803xxxxxxx or username" />
+          </div>
+          <div class="field" style="margin-top:10px">
+            <label>Amount (₦)</label>
+            <input id="bet-amount" type="number" min="50" placeholder="Minimum ₦50" />
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+            <button class="btn" id="buyBet">Top-up via WhatsApp</button>
+            <a class="btn ghost" href="home.html">Back</a>
+          </div>
+          <p id="betting-error" style="color:#ff4444;margin-top:8px;font-size:14px;display:none;"></p>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- Modal for order confirmation -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal-content">
+      <h3>Confirm Order</h3>
+      <label>Service:</label>
+      <input id="orderService" readonly>
+      <label>Package / Amount:</label>
+      <input id="orderPackage" readonly>
+      <label>Price:</label>
+      <input id="orderPrice" readonly>
+      <label>Phone / Account:</label>
+      <input id="orderPhone" placeholder="0803XXXXXXXX">
+      <label>Note (optional):</label>
+      <textarea id="orderNote" placeholder="Extra details..."></textarea>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn" id="confirmBuy">Confirm</button>
+        <button class="btn ghost" id="closeModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script>
+  const buyBtn = document.getElementById("buyBet");
+  const platformInput = document.getElementById("bet-platform");
+  const accountInput = document.getElementById("bet-account");
+  const amountInput = document.getElementById("bet-amount");
+  const errorEl = document.getElementById("betting-error");
+
+  const SELLER_PHONE = "2348050325693"; // change to your WhatsApp number
+
+  buyBtn.addEventListener("click", () => {
+    const platform = platformInput.value;
+    const account = accountInput.value.trim();
+    const amount = amountInput.value;
+
+    // Validation
+    if (!platform) {
+      errorEl.textContent = "Please select a platform.";
+      errorEl.style.display = "block";
+      return;
+    }
+    if (!account) {
+      errorEl.textContent = "Please enter your account or phone number.";
+      errorEl.style.display = "block";
+      return;
+    }
+    if (!amount || amount < 50) {
+      errorEl.textContent = "Please enter a valid amount (minimum ₦50).";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    errorEl.style.display = "none";
+
+    // Prefilled WhatsApp message
+    const msg = `Hello 👋, I want to top-up my *${platform}* account.\nAmount: ₦${amount}\nAccount/Phone: ${account}`;
+    const url = `https://wa.me/${SELLER_PHONE}?text=${encodeURIComponent(msg)}`;
+
+    // Open WhatsApp
+    window.open(url, "_blank");
+  });
+</script>
+
+
+  <script type="module" src="script.js"></script>
+  <script>
+    fetch('footer.html')
+      .then(r => r.text())
+      .then(html => document.getElementById('footer-container').innerHTML = html);
+  </script>
+</body>
+</html>
