@@ -252,29 +252,34 @@ qs("#confirmBuy")?.addEventListener("click", async ()=>{
 // ================================
 // ✅ USER ORDERS LISTENER
 // ================================
-function listenUserOrders(){
+function listenUserOrders() {
   const ordersTbody = qs("#ordersTbody");
   const user = getCurrentUser();
-  if(!ordersTbody) return;
+  if (!ordersTbody) return;
 
-  if(!user){ 
-    ordersTbody.innerHTML=`<tr><td colspan="5">⚠️ Please login to view your orders.</td></tr>`; 
-    return; 
+  // If user not logged in
+  if (!user) {
+    ordersTbody.innerHTML = `<tr><td colspan="4">⚠️ Please login to view your orders.</td></tr>`;
+    return;
   }
 
-  const ordersRef = collection(db,"orders");
-  onSnapshot(ordersRef, snapshot=>{
-    ordersTbody.innerHTML="";
-    snapshot.docs.forEach(docSnap=>{
+  const ordersRef = collection(db, "orders");
+
+  onSnapshot(ordersRef, snapshot => {
+    ordersTbody.innerHTML = "";
+
+    snapshot.docs.forEach(docSnap => {
       const data = docSnap.data();
-      if(data.userEmail!==user.email) return;
-      ordersTbody.insertAdjacentHTML("beforeend",`
+
+      // Only show orders belonging to logged-in user
+      if (data.userEmail !== user.email) return;
+
+      ordersTbody.insertAdjacentHTML("beforeend", `
         <tr>
           <td>${data.game}</td>
           <td>${data.package}</td>
           <td>₦${Number(data.price).toLocaleString()}</td>
           <td>${data.status}</td>
-          <td><button onclick="markSent('${docSnap.id}')">Mark as Sent</button></td>
         </tr>
       `);
     });
@@ -282,9 +287,6 @@ function listenUserOrders(){
 }
 
 document.addEventListener("DOMContentLoaded", listenUserOrders);
-window.markSent = async function(orderId){
-  await updateDoc(doc(db,"orders",orderId),{status:"sent"});
-};
 
 // ================================
 // ✅ ADMIN ORDERS LISTENER
@@ -405,3 +407,32 @@ if(buyBetBtn){
     alert("✅ Betting order sent!");
   });
 }
+
+
+
+
+//mobile nav
+function setupMobileDropdown() {
+  const menuBtn = document.getElementById('menuToggle');
+  const topnav = document.getElementById('topnav');
+
+  menuBtn.addEventListener('click', () => {
+    if (topnav.style.display === 'flex') {
+      topnav.style.display = 'none';
+    } else {
+      topnav.style.display = 'flex';
+    }
+  });
+
+  // Close menu when a link is clicked
+  topnav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      topnav.style.display = 'none';
+    });
+  });
+}
+
+// Initialize dropdown
+setupMobileDropdown();
+
+//mobile nav end
